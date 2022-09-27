@@ -79,6 +79,12 @@ void add(n)
                     isCANCEL=0;
                     break;
                 }
+                if (strcmp(cancel,"annuler")!=0)
+                {   
+                    goto sameCODE;
+                    
+                }
+                
             }
         
         }
@@ -143,7 +149,7 @@ void listAlph()
     {
         for (int j = 0; j < tProducts-i-1; j++)
         {
-            if (strcmp(product[j].nom,product[j+1].nom)>0)
+            if (strcmp(product[j].nom,product[j+1].nom)<0)
             {
                 productTemp=product[j+1];
                 product[j+1]=product[j];
@@ -204,8 +210,8 @@ void listPrice()
 
 //_________________buy a product
 void buy(){
-    char codeCMP[20];
-    int isFound, confirm, howMANY;
+    char codeCMP[20],confirm[20];
+    int isFound, howMANY;
     system("cls");
     printf("Entrez le code du produit que vous voullez acheter :\n");
     purchaseFAILED:
@@ -235,7 +241,7 @@ void buy(){
         goto purchaseFAILED;
     }
     printf("Entrer n\'importe quelle touche  pour confirmer l\'achat ou 0 pour annuler :\n");
-    scanf("%d",&confirm);
+    scanf("%s",&confirm);
 
     if(confirm!=0)
     {   noSTOCK:
@@ -279,16 +285,16 @@ void buy(){
 
 
 //_________________searchCODE
-int isFOUND=1; char Scode[20]; //NeededAsglobalVar :)
+int isFOUND=1; float Scode; //NeededAsglobalVar :)
 void searchCODE()
 { 
     system("cls");
     printf("Recherche par code:\n");
-    scanf("%s",Scode); 
+    scanf("%f",&Scode); 
 
     for (int i = 0; i < tProducts; i++)
     {
-        if(strcmp(Scode,product[i].code)==0)
+        if(Scode==product[i].prixHT)
         {   
             green();
             printf("%s                ",product[i].nom);resetCOLOR();
@@ -681,4 +687,4 @@ void MENU()
 
 
 
-            /////////////////////////                    THE END  :)                ////////////////////////////////////////
+            /////////////////////////                    THE END  :)                
